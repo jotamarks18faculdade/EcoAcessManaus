@@ -1,6 +1,6 @@
 # ♻️ EcoAcess Manaus: Identificação sem Barreiras
 
-![Banner EcoAcess Manaus](https://raw.githubusercontent.com/jotamarks18faculdade/EcoAcessManaus/main/Captura%20de%20tela%202026-10-26%20034603.jpg)
+![Banner EcoAcess Manaus](https://raw.githubusercontent.com/jotamarks18faculdade/EcoAcessManaus/master/Captura%20de%20tela%202026-10-26%20034603.jpg)
 
 O **EcoAcess Manaus** é uma solução tecnológica móvel voltada a promover a **acessibilidade digital**, a **inclusão social** e a **sustentabilidade ambiental** na cidade de Manaus (AM). O projeto integra Inteligência Artificial (IA), Teoria dos Grafos e Design Inclusivo para solucionar os desafios de descarte incorreto de resíduos e apoiar pessoas com deficiência na visão de cores (daltonismo).
 
