@@ -107,6 +107,8 @@ export interface DayThemeData {
   themeAccent: string;
 }
 
+export type AccountProfileType = 'individual' | 'family';
+
 export interface UserProfile {
   id: string;
   name: string;
@@ -118,6 +120,9 @@ export interface UserProfile {
   role: 'user' | 'admin';
   createdAt: string;
   isBlocked?: boolean;
+  accountType?: AccountProfileType;
+  guardianName?: string;
+  guardianEmail?: string;
 }
 
 export interface GraphNode {

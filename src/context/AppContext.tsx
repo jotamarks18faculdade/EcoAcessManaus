@@ -7,7 +7,8 @@ import {
   DailyWallpaper, 
   MotivationalQuote,
   PartnerReward,
-  DayThemeData
+  DayThemeData,
+  AccountProfileType
 } from '../types';
 import { 
   DAILY_WALLPAPERS, 
@@ -67,7 +68,17 @@ interface AppContextType {
   // Actions
   login: (username: string, role?: 'user' | 'admin') => boolean;
   logout: () => void;
-  registerUser: (name: string, email: string, username: string, colorType: AccessibilitySettings['colorBlindnessType']) => void;
+  registerUser: (
+    name: string, 
+    email: string, 
+    username: string, 
+    colorType: AccessibilitySettings['colorBlindnessType'],
+    options?: {
+      accountType?: AccountProfileType;
+      guardianName?: string;
+      guardianEmail?: string;
+    }
+  ) => void;
   addHistoryItem: (item: WasteIdentificationResult) => void;
   redeemReward: (rewardId: string) => boolean;
 
@@ -111,6 +122,7 @@ const initialUsers: UserProfile[] = [
     ecoPoints: 1250,
     level: 'Administrador do Sistema',
     role: 'admin',
+    accountType: 'individual',
     createdAt: '2026-01-10',
     isBlocked: false,
   },
@@ -123,30 +135,35 @@ const initialUsers: UserProfile[] = [
     ecoPoints: 420,
     level: 'Guardião dos Igarapés',
     role: 'user',
+    accountType: 'family',
+    guardianName: 'Carlos Barreto',
+    guardianEmail: 'carlos.barreto@gmail.com',
     createdAt: '2026-03-01',
     isBlocked: false,
   },
   {
     id: 'user-2',
-    name: 'Larissa Marinho',
+    name: 'Larissa Marinho (Educadora)',
     username: 'larissa.eco',
     email: 'larissa.recicla@outlook.com',
     colorBlindnessType: 'protanopia',
     ecoPoints: 280,
     level: 'Protetor da Floresta',
     role: 'user',
+    accountType: 'individual',
     createdAt: '2026-03-15',
     isBlocked: false,
   },
   {
     id: 'user-3',
-    name: 'Lucas Tananta',
+    name: 'Lucas Tananta (Universitário)',
     username: 'lucas.am',
     email: 'lucas.tananta@ufam.edu.br',
     colorBlindnessType: 'tritanopia',
     ecoPoints: 150,
     level: 'Iniciante Consciente',
     role: 'user',
+    accountType: 'individual',
     createdAt: '2026-04-02',
     isBlocked: false,
   },
@@ -374,8 +391,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     name: string, 
     email: string, 
     username: string, 
-    colorType: AccessibilitySettings['colorBlindnessType']
+    colorType: AccessibilitySettings['colorBlindnessType'],
+    options?: {
+      accountType?: AccountProfileType;
+      guardianName?: string;
+      guardianEmail?: string;
+    }
   ) => {
+    const accountType = options?.accountType || 'individual';
     const newUser: UserProfile = {
       id: 'usr-' + Date.now(),
       name,
@@ -383,8 +406,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       username,
       colorBlindnessType: colorType,
       ecoPoints: 150, // Welcome bonus points
-      level: 'Guardião Iniciante',
+      level: accountType === 'family' ? 'Guardião Júnior' : 'Cidadão Consciente',
       role: 'user',
+      accountType,
+      guardianName: options?.guardianName,
+      guardianEmail: options?.guardianEmail,
       createdAt: new Date().toISOString().split('T')[0],
       isBlocked: false,
     };
